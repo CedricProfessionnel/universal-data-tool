@@ -14,11 +14,11 @@ export default () => {
 
   const setDatasetManager = useCallback(
     (newDM) => {
-      if (dm) {
-        if (dm.disconnect) {
-          dm.disconnect()
+      if (dm && dm.dm) {
+        if (dm.dm.disconnect) {
+          dm.dm.disconnect()
         } else {
-          dm.emit("disconnect")
+          dm.dm.emit("disconnect")
         }
       }
       setRecoilDatasetManager(newDM)

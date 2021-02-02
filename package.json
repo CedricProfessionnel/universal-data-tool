@@ -30,8 +30,7 @@
     "test:prettier": "prettier --check \"src/**/*.js\"",
     "test:lint": "eslint src --max-warnings=0",
     "test:integration:dev": "./node_modules/cypress/bin/cypress open",
-    "test:integration": "./node_modules/cypress/bin/cypress run --env failOnSnapshotDiff=false",
-    "test:devBrowser": "dotenv yarn run cypress open"
+    "test:integration": "./node_modules/cypress/bin/cypress run --env failOnSnapshotDiff=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,7 +50,10 @@
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.5.4",
+<<<<<<< HEAD
     "@cypress/react": "^4.16.4",
+=======
+>>>>>>> 9dbfb42 (temp)
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
     "@storybook/addon-actions": "^5.3.19",
@@ -131,6 +133,7 @@
     "styled-components": "^5.0.0",
     "udt-collaboration-server": "^1.0.7",
     "udt-dataset-managers": "^1.0.15",
+    "udt-dataset-managers-test": "^4.0.0",
     "udt-format": "0.0.1",
     "use-async-effect": "^2.2.2",
     "use-event-callback": "^0.1.0",

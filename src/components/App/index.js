@@ -5,7 +5,7 @@ import StartingPage from "../StartingPage"
 import DatasetEditor from "../DatasetEditor"
 import ErrorToasts from "../ErrorToasts"
 import useErrors from "../../hooks/use-errors.js"
-import LocalStorageDatasetManager from "udt-dataset-managers/dist/LocalStorageDatasetManager.js"
+import LocalStorageDatasetManager from "udt-dataset-managers-test/dist/dataset-wrapper"
 import useActiveDatasetManager from "../../hooks/use-active-dataset-manager"
 import AppErrorBoundary from "../AppErrorBoundary"
 import useEventCallback from "use-event-callback"
@@ -35,7 +35,7 @@ export default () => {
 
   const [selectedBrush, setSelectedBrush] = useState("complete")
   const onCreateTemplate = useEventCallback(async (template) => {
-    const dm = new LocalStorageDatasetManager()
+    const dm = new LocalStorageDatasetManager("local-storage")
     await dm.setDataset({
       ...template.dataset,
       name: `New ${template.dataset.interface.type} Dataset`,
@@ -63,7 +63,7 @@ export default () => {
     posthog.capture("download_file", { file_type: format })
     const ds = await datasetManager.getDataset()
     const userProvidedFileName = (
-      datasetManager.sessionId ||
+      datasetManager.dm.sessionId ||
       ds.name ||
       "MyDataset"
     ).replace(/\.udt\.(csv|json)/, "")

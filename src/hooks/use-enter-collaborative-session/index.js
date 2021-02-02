@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import useActiveDatasetManager from "../use-active-dataset-manager"
-import CollaborativeDatasetManager from "udt-dataset-managers/dist/CollaborationServerDatasetManager"
+import CollaborativeDatasetManager from "udt-dataset-managers-test/dist/dataset-wrapper"
 import useAppConfig from "../use-app-config"
 import qs from "qs"
 
@@ -11,10 +11,10 @@ export default () => {
     if (dm) return
     const queryParams = qs.parse(window.location.search.substr(1))
     async function goIntoCollaborativeSession(sessionId) {
-      const dm = new CollaborativeDatasetManager({
+      const dm = new CollaborativeDatasetManager("collaborative-session",{
         serverUrl: fromConfig("collaborationServer.url"),
       })
-      await dm.loadSession(sessionId)
+      await dm.dm.loadSession(sessionId)
       setActiveDatasetManager(dm)
     }
     if (queryParams.s) {

@@ -3,8 +3,7 @@
 import React, { useState, createContext, useContext, useCallback } from "react"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import LoginDrawer from "../LoginDrawer"
-import CollaborativeDatasetManager from "udt-dataset-managers/dist/CollaborationServerDatasetManager"
-import LocalStorageDatasetManager from "udt-dataset-managers/dist/LocalStorageDatasetManager"
+import datasetWrapper from "udt-dataset-managers-test/dist/dataset-wrapper"
 import useEventCallback from "use-event-callback"
 import { useAppConfig } from "../AppConfig"
 import HeaderWithContainer from "./HeaderWithContainer"
@@ -58,7 +57,7 @@ export const Header = ({
     const previousUDTJSON = dm
       ? await dm.getDataset()
       : { interface: {}, samples: [] }
-    const newDM = new CollaborativeDatasetManager({
+    const newDM = new datasetWrapper("collaborative-session",{
       serverUrl: fromConfig("collaborationServer.url"),
     })
     try {
@@ -69,7 +68,7 @@ export const Header = ({
     window.history.replaceState(
       null,
       null,
-      `?s=${encodeURIComponent(newDM.sessionId)}`
+      `?s=${encodeURIComponent(newDM.dm.sessionId)}`
     )
     setActiveDatasetManager(newDM)
   })
@@ -77,14 +76,14 @@ export const Header = ({
   const onJoinSession = useEventCallback(async (sessionId) => {
     const sessionUrl = new URL(sessionId)
     async function goIntoCollaborativeSession(sessionId) {
-      const dm = new CollaborativeDatasetManager({
+      const dm = new datasetWrapper("collaborative-session",{
         serverUrl: fromConfig("collaborationServer.url"),
       })
-      await dm.loadSession(sessionId)
+      await dm.dm.loadSession(sessionId)
       window.history.replaceState(
         null,
         null,
-        `?s=${encodeURIComponent(dm.sessionId)}`
+        `?s=${encodeURIComponent(dm.dm.sessionId)}`
       )
       setActiveDatasetManager(dm)
     }
@@ -96,7 +95,7 @@ export const Header = ({
   const onLeaveSession = useEventCallback(async () => {
     if (dm) {
       const ds = await dm.getDataset()
-      const newDM = new LocalStorageDatasetManager()
+      const newDM = new datasetWrapper("local-storage")
       await newDM.setDataset(ds)
       setActiveDatasetManager(newDM)
     }

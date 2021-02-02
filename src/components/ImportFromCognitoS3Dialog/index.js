@@ -3,7 +3,7 @@ import SimpleDialog from "../SimpleDialog"
 import DataTable from "react-data-table-component"
 import useDataset from "../../hooks/use-dataset"
 import isEmpty from "lodash/isEmpty"
-import datasetManagerCognito from "udt-dataset-managers/dist/CognitoDatasetManager"
+import datasetManagerCognito from "udt-dataset-managers-test/dist/dataset-wrapper"
 import useAuth from "../../utils/auth-handlers/use-auth"
 import setTypeOfFileToLoadAndDisable from "./set-type-of-file-to-load-and-disable"
 import initConfigImport from "./init-config-import"
@@ -99,23 +99,23 @@ export default ({ open, onClose, onAddSamples }) => {
   useEffect(() => {
     if (!open) return
     if (!authConfig) return
-    if (!dm) setDm(new datasetManagerCognito({ authConfig }))
+    if (!dm) setDm(new datasetManagerCognito("cognito",{ authConfig }))
   }, [open, authConfig, dm])
 
   const getProjects = async () => {
     if (!open) return
     if (!dm) return
     if (!(await dm.isReady())) return
-    var dataFolder = Array.from(await dm.getProjects())
+    var dataFolder = Array.from(await dm.dm.getProjects())
 
     var data = await Promise.all(
       dataFolder.map(async (obj, index) => {
         const folder = obj
         var isSelected = false
-        const rowAnnotationsContent = await dm.getListSamples({
+        const rowAnnotationsContent = await dm.dm.getListSamples({
           projectName: obj,
         })
-        const rowAssetsContent = await dm.getListAssets({
+        const rowAssetsContent = await dm.dm.getListAssets({
           projectName: obj,
         })
         if (projectToFetch && projectToFetch.folder === folder)
@@ -146,13 +146,13 @@ export default ({ open, onClose, onAddSamples }) => {
     if (!dm) return
     if (!(await dm.isReady())) return
     if (!projectToFetch) return
-    dm.setProject(projectToFetch.folder)
+    dm.dm.setProject(projectToFetch.folder)
   }
   useEffect(() => {
     if (!open) return
     if (!authConfig) return
     if (!dm) {
-      setDm(new datasetManagerCognito({ authConfig }))
+      setDm(new datasetManagerCognito("cognito",{ authConfig }))
       setConfigImport(initConfigImport(oldData))
     }
   }, [open, authConfig, dm, oldData])
@@ -173,7 +173,7 @@ export default ({ open, onClose, onAddSamples }) => {
     var jsons = await Promise.all(
       projectToFetch.rowAssetsUrl.map(async (obj) => {
         return await createJsonFromUrlAWS(
-          dm.projectName,
+          dm.dm.projectName,
           obj.split("/assets/")[1]
         )
       })
@@ -182,7 +182,7 @@ export default ({ open, onClose, onAddSamples }) => {
   }
 
   const createJsonFromUrlAWS = async (projectName, imageName) => {
-    var url = await dm.getAssetUrl(imageName, projectName)
+    var url = await dm.dm.getAssetUrl(imageName, projectName)
     var json = setUrl(url, configImport)
     if (json) json = setIn(json, ["_id"], imageName)
     if (json) json = setIn(json, ["source"], projectName)
@@ -190,7 +190,7 @@ export default ({ open, onClose, onAddSamples }) => {
   }
 
   const createJsonFromAnnotation = async () => {
-    var jsons = await dm.readJSONAllSamples(projectToFetch.rowAnnotationsUrl)
+    var jsons = await dm.dm.readJSONAllSamples(projectToFetch.rowAnnotationsUrl)
     var sources = getSources(jsons)
     if (sources) {
       jsons = await Promise.all(

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import useElectron from "../use-electron"
 import useActiveDatasetManager from "../use-active-dataset-manager"
-import LocalStorageDatasetManager from "udt-dataset-managers/dist/LocalStorageDatasetManager"
+import LocalStorageDatasetManager from "udt-dataset-managers-test/dist/dataset-wrapper"
 import templates from "../../components/StartingPage/templates"
 import useToasts from "../use-toasts"
 import toUDTCSV from "../../utils/to-udt-csv.js"
@@ -23,7 +23,7 @@ export default () => {
     }
 
     const onNewFile = async (arg0, { templateName } = {}) => {
-      const newDM = new LocalStorageDatasetManager()
+      const newDM = new LocalStorageDatasetManager("local-storage")
       await newDM.setDataset(
         templates.find((t) => t.name === templateName) || templates[0]
       )

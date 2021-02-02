@@ -1,7 +1,7 @@
 import useActiveDatasetManager from "../use-active-dataset-manager"
 import useEventCallback from "use-event-callback"
 import fromUDTCSV from "../../utils/from-udt-csv"
-import LocalStorageDatasetManager from "udt-dataset-managers/dist/LocalStorageDatasetManager"
+import LocalStorageDatasetManager from "udt-dataset-managers-test/dist/dataset-wrapper"
 import { useToasts } from "../../components/Toasts"
 
 export default () => {
@@ -20,7 +20,7 @@ export default () => {
           dataset = JSON.parse(content)
         }
         // TODO validate OHA and prompt to open anyway if invalid
-        const dm = new LocalStorageDatasetManager()
+        const dm = new LocalStorageDatasetManager("local-storage")
         await dm.setDataset({ ...dataset, filePath, name: fileName })
         setActiveDatasetManager(dm)
       } catch (e) {

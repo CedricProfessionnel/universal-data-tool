@@ -3,7 +3,7 @@ import SimpleDialog from "../SimpleDialog"
 import DataTable from "react-data-table-component"
 import useActiveDatasetManager from "../../hooks/use-active-dataset-manager"
 import isEmpty from "lodash/isEmpty"
-import datasetManagerCognito from "udt-dataset-managers/dist/CognitoDatasetManager"
+import datasetManagerCognito from "udt-dataset-managers-test/dist/dataset-wrapper"
 import useAuth from "../../utils/auth-handlers/use-auth"
 import { Grid, TextField } from "@material-ui/core"
 import { useTranslation } from "react-i18next"
@@ -81,12 +81,12 @@ export default ({ open, onClose }) => {
     if (!open) return
     if (!dm) return
     if (!(await dm.isReady())) return
-    var dataFolder = Array.from(await dm.getProjects())
+    var dataFolder = Array.from(await dm.dm.getProjects())
 
     var data = await Promise.all(
       dataFolder.map(async (obj, index) => {
         const folder = obj
-        const rowAnnotationsContent = await dm.getListSamples({
+        const rowAnnotationsContent = await dm.dm.getListSamples({
           projectName: obj,
         })
         return {
@@ -107,7 +107,7 @@ export default ({ open, onClose }) => {
   useEffect(() => {
     if (!open) return
     if (!authConfig) return
-    if (!dm) setDm(new datasetManagerCognito({ authConfig }))
+    if (!dm) setDm(new datasetManagerCognito("cognito",{ authConfig }))
     // eslint-disable-next-line
   }, [dm, open, authConfig])
 
@@ -136,7 +136,7 @@ export default ({ open, onClose }) => {
     if (!currentDataset) return
     var dataset = currentDataset
     dataset = dataset.setIn(["name"], nameProjectToCreate)
-    if (nameProjectExist) await dm.removeSamplesFolder(nameProjectToCreate)
+    if (nameProjectExist) await dm.dm.removeSamplesFolder(nameProjectToCreate)
     await dm.setDataset(dataset)
     await activeDatasetManager.setDataset(dataset)
     await getProjects()
