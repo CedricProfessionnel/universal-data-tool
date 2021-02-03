@@ -1,7 +1,7 @@
 import { useEffect, useState, useReducer } from "react"
 import useActiveDatasetManager from "../use-active-dataset-manager"
 
-export default (datasetPropertyKey: string) => {
+export default (datasetPropertyKey) => {
   const [propVal, setPropVal] = useState()
   const [propVersion, incPropVersion] = useReducer((state) => state + 1, 0)
   const [dm] = useActiveDatasetManager()

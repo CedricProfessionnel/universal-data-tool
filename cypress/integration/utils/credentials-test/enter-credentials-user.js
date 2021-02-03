@@ -10,6 +10,9 @@ const test = () => {
   cy.get(
     'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-68 MuiButton-containedPrimary MuiButton-fullWidth"]'
   ).click()
-  cy.wait(2000)
+  cy.get(
+    'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-68 MuiButton-containedPrimary MuiButton-fullWidth"]',
+    {timeout: 100000}
+  ).should("not.exist")
 }
 export default test

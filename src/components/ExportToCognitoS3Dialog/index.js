@@ -81,12 +81,12 @@ export default ({ open, onClose }) => {
     if (!open) return
     if (!dm) return
     if (!(await dm.isReady())) return
-    var dataFolder = Array.from(await dm.dm.getProjects())
+    var dataFolder = Array.from(await dm.getProjects())
 
     var data = await Promise.all(
       dataFolder.map(async (obj, index) => {
         const folder = obj
-        const rowAnnotationsContent = await dm.dm.getListSamples({
+        const rowAnnotationsContent = await dm.getListSamples({
           projectName: obj,
         })
         return {
@@ -136,7 +136,7 @@ export default ({ open, onClose }) => {
     if (!currentDataset) return
     var dataset = currentDataset
     dataset = dataset.setIn(["name"], nameProjectToCreate)
-    if (nameProjectExist) await dm.dm.removeSamplesFolder(nameProjectToCreate)
+    if (nameProjectExist) await dm.removeSamplesFolder(nameProjectToCreate)
     await dm.setDataset(dataset)
     await activeDatasetManager.setDataset(dataset)
     await getProjects()

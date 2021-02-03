@@ -106,16 +106,16 @@ export default ({ open, onClose, onAddSamples }) => {
     if (!open) return
     if (!dm) return
     if (!(await dm.isReady())) return
-    var dataFolder = Array.from(await dm.dm.getProjects())
+    var dataFolder = Array.from(await dm.getProjects())
 
     var data = await Promise.all(
       dataFolder.map(async (obj, index) => {
         const folder = obj
         var isSelected = false
-        const rowAnnotationsContent = await dm.dm.getListSamples({
+        const rowAnnotationsContent = await dm.getListSamples({
           projectName: obj,
         })
-        const rowAssetsContent = await dm.dm.getListAssets({
+        const rowAssetsContent = await dm.getListAssets({
           projectName: obj,
         })
         if (projectToFetch && projectToFetch.folder === folder)
@@ -146,7 +146,7 @@ export default ({ open, onClose, onAddSamples }) => {
     if (!dm) return
     if (!(await dm.isReady())) return
     if (!projectToFetch) return
-    dm.dm.setProject(projectToFetch.folder)
+    dm.setProject(projectToFetch.folder)
   }
   useEffect(() => {
     if (!open) return
@@ -173,7 +173,7 @@ export default ({ open, onClose, onAddSamples }) => {
     var jsons = await Promise.all(
       projectToFetch.rowAssetsUrl.map(async (obj) => {
         return await createJsonFromUrlAWS(
-          dm.dm.projectName,
+          dm.projectName,
           obj.split("/assets/")[1]
         )
       })
@@ -182,7 +182,7 @@ export default ({ open, onClose, onAddSamples }) => {
   }
 
   const createJsonFromUrlAWS = async (projectName, imageName) => {
-    var url = await dm.dm.getAssetUrl(imageName, projectName)
+    var url = await dm.getAssetUrl(imageName, projectName)
     var json = setUrl(url, configImport)
     if (json) json = setIn(json, ["_id"], imageName)
     if (json) json = setIn(json, ["source"], projectName)
@@ -190,7 +190,7 @@ export default ({ open, onClose, onAddSamples }) => {
   }
 
   const createJsonFromAnnotation = async () => {
-    var jsons = await dm.dm.readJSONAllSamples(projectToFetch.rowAnnotationsUrl)
+    var jsons = await dm.readJSONAllSamples(projectToFetch.rowAnnotationsUrl)
     var sources = getSources(jsons)
     if (sources) {
       jsons = await Promise.all(

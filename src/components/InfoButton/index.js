@@ -21,7 +21,7 @@ export const InfoButton = () => {
 
   let shareURL
   if (dm.type === "collaborative-session") {
-    shareURL = `${window.location.origin}?s=${dm.dm.sessionId}`
+    shareURL = `${window.location.origin}?s=${dm.sessionId}`
   }
 
   return (

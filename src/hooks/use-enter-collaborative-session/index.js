@@ -14,7 +14,7 @@ export default () => {
       const dm = new CollaborativeDatasetManager("collaborative-session",{
         serverUrl: fromConfig("collaborationServer.url"),
       })
-      await dm.dm.loadSession(sessionId)
+      await dm.loadSession(sessionId)
       setActiveDatasetManager(dm)
     }
     if (queryParams.s) {

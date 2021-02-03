@@ -36,6 +36,7 @@ export const ConfigureInterface = ({
   onClickEditJSON,
   isNested = false,
 }) => {
+  console.log(iface)
   return (
     <Container>
       {!iface?.type && <NoOptions>Select a Type</NoOptions>}

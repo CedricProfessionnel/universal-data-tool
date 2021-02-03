@@ -18357,12 +18357,7 @@ regenerator-runtime@^0.11.0:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
-regenerator-runtime@^0.12.0:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
-  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
-
-regenerator-runtime@^0.13.2, regenerator-runtime@^0.13.3, regenerator-runtime@^0.13.4:
+regenerator-runtime@^0.13.2, regenerator-runtime@^0.13.3, regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.7:
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
   integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
@@ -20858,15 +20853,16 @@ udt-collaboration-server@^1.0.7:
     tmp "^0.2.1"
     yargs "^16.0.3"
 
-udt-dataset-managers-test@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/udt-dataset-managers-test/-/udt-dataset-managers-test-4.0.0.tgz#a520fd49f29792208a56c52cfb498428f2f8a773"
-  integrity sha512-rQC9f5TgXn3+qhgpIDGb1neWBWFBEsr4ETIFAMSF8wljCtGBU1QdXKNVGOx7b8yN4ZFX3qNbkr/e6Z/KzqE4hg==
+udt-dataset-managers-test@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/udt-dataset-managers-test/-/udt-dataset-managers-test-10.0.0.tgz#fb9a2a3ab4c102c95f68a156c6e7f30bbafb98b0"
+  integrity sha512-whP9lWezf/sRMM8WkxnGmiwQKFN5TxXpoz7M1iGKx1bYqA+VBkUqCHZmFTqejGivA5Q+jnOeCroJBBRqZ5qVMQ==
   dependencies:
     aws-amplify "^3.3.4"
     axios "^0.20.0"
     concurrently "^5.3.0"
     prettier "^2.2.1"
+    regenerator-runtime "^0.13.7"
     rfc6902 "^4.0.1"
     seamless-immutable-patch "^1.0.5"
 

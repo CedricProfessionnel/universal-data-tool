@@ -1,4 +1,4 @@
-import datasetManagerCognito from "udt-dataset-managers/dist/CognitoDatasetManager"
+import datasetManagerCognito from "udt-dataset-managers-test/dist/dataset-wrapper.js"
 
 const removeAWSFile = (name) => {
   var credentials = Cypress.env()
@@ -20,10 +20,10 @@ const removeAWSFile = (name) => {
           },
         },
       }
-      const ds = await new datasetManagerCognito({ authConfig })
-      await ds.removeProject(name)
+      const ds = await new datasetManagerCognito("cognito",{ authConfig })
+      await ds.dm.removeProject(name)
     },
-    { timeout: 10000 }
+    { timeout: 100000 }
   )
 }
 export default removeAWSFile

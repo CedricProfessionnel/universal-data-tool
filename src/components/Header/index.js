@@ -68,7 +68,7 @@ export const Header = ({
     window.history.replaceState(
       null,
       null,
-      `?s=${encodeURIComponent(newDM.dm.sessionId)}`
+      `?s=${encodeURIComponent(newDM.sessionId)}`
     )
     setActiveDatasetManager(newDM)
   })
@@ -79,11 +79,11 @@ export const Header = ({
       const dm = new datasetWrapper("collaborative-session",{
         serverUrl: fromConfig("collaborationServer.url"),
       })
-      await dm.dm.loadSession(sessionId)
+      await dm.loadSession(sessionId)
       window.history.replaceState(
         null,
         null,
-        `?s=${encodeURIComponent(dm.dm.sessionId)}`
+        `?s=${encodeURIComponent(dm.sessionId)}`
       )
       setActiveDatasetManager(dm)
     }
