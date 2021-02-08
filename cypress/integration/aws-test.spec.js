@@ -1,17 +1,8 @@
-<<<<<<< HEAD
 import enterCredentialsCognitoS3 from "./utils/credentials-test/enter-credentials-cognito-s3"
 import enterCredentialsUser from "./utils/credentials-test/enter-credentials-user"
 import setLanguage from "./utils/set-language"
 import goToImportPage from "./utils/go-to-import-page"
 import removeAWSFile from "./utils/remove-cypress-file-in-aws"
-import "regenerator-runtime/runtime"
-=======
-import enterCredentialsCognitoS3 from "../utils/credentials-test/enter-credentials-cognito-s3.spec"
-import enterCredentialsUser from "../utils/credentials-test/enter-credentials-user.spec"
-import setLanguage from "../utils/set-language.spec"
-import goToImportPage from "../utils/go-to-import-page.spec"
-import removeAWSFile from "../utils/remove-cypress-file-in-aws.spec"
->>>>>>> 683b450 (mm)
 if (Cypress.env().AWS_IDENTITY_POOL_ID)
   describe("aws test", () => {
     it("Try to export a natif project to aws", () => {

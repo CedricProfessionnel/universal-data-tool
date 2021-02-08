@@ -8,10 +8,10 @@ const test = () => {
   cy.contains("Cognito").click()
   enterCredentialsUser()
   cy.get(
-    'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-68 MuiButton-containedPrimary MuiButton-fullWidth"]'
+    'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-70 MuiButton-containedPrimary MuiButton-fullWidth"]'
   ).click()
   cy.get(
-    'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-68 MuiButton-containedPrimary MuiButton-fullWidth"]',
+    'button[class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-70 MuiButton-containedPrimary MuiButton-fullWidth"]',
     {timeout: 100000}
   ).should("not.exist")
 }
